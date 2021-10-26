@@ -17,17 +17,13 @@ public class Main {
         myArrayList.add(object3);
         myArrayList.add(object4);
         myArrayList.print();
-        System.out.println("-----------");
         System.out.println("size() method:");
         System.out.println("MyArrayList size: " + myArrayList.size());
-        System.out.println("-----------");
         System.out.println("remove() method:");
         myArrayList.remove(1);
         myArrayList.print();
-        System.out.println("-----------");
         System.out.println("get() method:");
         System.out.println(myArrayList.get(1));
-        System.out.println("-----------");
         System.out.println("clear() method:");
         myArrayList.clear();
         myArrayList.print();
