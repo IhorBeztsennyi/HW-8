@@ -7,6 +7,7 @@ public class Main {
         Object object2 = "Second";
         Object object3 = "Third";
         Object object4 = "Forth";
+        Object object5 = null;
 
         System.out.println("MyArrayList");
         MyArrayList myArrayList = new MyArrayList();
@@ -46,10 +47,11 @@ public class Main {
         myLinkedList.remove(1);
         System.out.println("MyLinkedList size after remove: " + myLinkedList.size());
         System.out.println("get() method:");
-        Node node = myLinkedList.get(0);
+
         System.out.println("clear() method:");
         myLinkedList.clear();
         System.out.println("MyLinkedList size after clear: " + myLinkedList.size());
+
 
         System.out.println("*****************");
         System.out.println("MyQueue");
@@ -109,7 +111,7 @@ public class Main {
         myHashMap.put(object2, object1);
         myHashMap.put(object3,object4);
         myHashMap.put(object4, object3);
-        myHashMap.put(object1, object4);
+        myHashMap.put(object5, object2);
         myHashMap.print();
         System.out.println("size() method:");
         System.out.println("MyHashMap size: " + myHashMap.size());
@@ -122,5 +124,6 @@ public class Main {
         myHashMap.clear();
         myHashMap.print();
         System.out.println("MyHashMap size after clear: " + myHashMap.size());
+
     }
 }

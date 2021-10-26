@@ -3,15 +3,16 @@ package academy.learnprogramming;
 import java.util.Arrays;
 
 public class MyArrayList {
-    private final static int INITIAL_SIZE = 16;
-    private final static double INCREASE_FACTOR = 2.5;
+
+    private final static int INITIAL_SIZE = 0;
+
     private int count = 0;
 
     Object[] myArrayStorage = new Object[INITIAL_SIZE];
 
     public boolean add(Object value) {
         if (myArrayStorage.length <= count) {
-            myArrayStorage = Arrays.copyOf(myArrayStorage, (int) (myArrayStorage.length * INCREASE_FACTOR));
+            myArrayStorage = Arrays.copyOf(myArrayStorage, (myArrayStorage.length +1));
         }
         myArrayStorage[count] = value;
         count++;
@@ -19,15 +20,15 @@ public class MyArrayList {
     }
 
     public boolean remove(int index) {
-        Object[] tempMyArrayStorage = Arrays.copyOf(myArrayStorage, myArrayStorage.length);
-        for (int i = 1; i < myArrayStorage.length; i++) {
+        Object[] tempMyArrayStorage = Arrays.copyOf(myArrayStorage, size());
+        for (int i = 0; i < size(); i++) {
             if (i < index) {
                 tempMyArrayStorage[i] = myArrayStorage[i];
             } else if (i > 1) {
                 tempMyArrayStorage[i - 1] = myArrayStorage[i];
             }
-            myArrayStorage = Arrays.copyOf(tempMyArrayStorage, tempMyArrayStorage.length);
         }
+        myArrayStorage = Arrays.copyOf(tempMyArrayStorage, size()-1);
         return true;
     }
 
@@ -36,13 +37,7 @@ public class MyArrayList {
     }
 
     public int size() {
-        int counter = 0;
-        for (Object tempObject : myArrayStorage) {
-            if (tempObject != null) {
-                counter++;
-            }
-        }
-        return counter;
+      return myArrayStorage.length;
     }
 
     public Object get(int index) {

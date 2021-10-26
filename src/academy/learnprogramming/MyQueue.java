@@ -40,13 +40,7 @@ public class MyQueue {
     }
 
     public int size() {
-        int count = 0;
-        for (Object tempObject : myQueueStorage) {
-            if (tempObject != null) {
-                count++;
-            }
-        }
-        return count;
+        return myQueueStorage.length;
     }
 
     public Object peek() {

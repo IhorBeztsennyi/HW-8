@@ -1,75 +1,103 @@
 package academy.learnprogramming;
-import java.util.Arrays;
 
 public class MyLinkedList {
-    private final static int INITIAL_SIZE = 0;
+    private Node head;
+    private Node tail;
+    int size = 0;
 
-    Node[] nodes;
+    private static class Node {
+        Object object;
+        Node next;
+        Node previous;
 
-    public MyLinkedList() {
-        this.nodes = new Node[INITIAL_SIZE];
+        public Node(Object element) {
+            this.object = element;
+        }
     }
 
     public void add(Object value) {
-        if (nodes.length == 0) {
-            nodes = Arrays.copyOf(nodes, nodes.length + 1);
-            Node newNode = new Node(value, null, null);
-            nodes[0] = newNode;
+        Node newNode = new Node(value);
+        if (head == null) {
+            newNode.next = null;
+            newNode.previous = null;
+            head = newNode;
+            tail = newNode;
         } else {
-            nodes = Arrays.copyOf(nodes, nodes.length + 1);
-            Node newNode = new Node(value, null, nodes[nodes.length - 2]);
-            nodes[nodes.length - 1] = newNode;
-            nodes[nodes.length - 2].setNextNode(newNode);
-
+            tail.next = newNode;
+            newNode.previous = tail;
+            tail = newNode;
         }
+        size++;
+
     }
 
-    public void remove(int index) throws IndexOutOfBoundsException {
-        if (index < 0 || index > nodes.length - 1) {
-            throw new IndexOutOfBoundsException();
+    public void remove(int index) {
+        if (index < 0 || index > size - 1) {
+            throw new IllegalArgumentException();
         }
         if (index == 0) {
-            nodes[1].setPreviousNode(null);
-            Node[] tempNodes = new Node[nodes.length - 1];
-            for (int j = 1; j < nodes.length; j++) {
-                tempNodes[j - 1] = nodes[j];
-                nodes = Arrays.copyOf(tempNodes, tempNodes.length);
-            }
-        } else if (index == nodes.length - 1) {
-            nodes[nodes.length - 2].setNextNode(null);
-            nodes = Arrays.copyOf(nodes, nodes.length - 1);
+            head = head.next;
         } else {
-            nodes[index - 1].setNextNode(nodes[index + 1]);
-            nodes[index + 1].setPreviousNode(nodes[index - 1]);
-            Node[] tempNodes = new Node[nodes.length - 1];
-            for (int i = 0; i < nodes.length; i++) {
-                if (i < index) {
-                    tempNodes[i] = nodes[i];
-                } else if (i > 1) {
-                    tempNodes[i - 1] = nodes[i];
+            Node element = get(index);
+            Node nodeBefore = getPrevious(element);
+            if (nodeBefore == null) {
+                head = head.next;
+                size--;
+            } else  {
+                if (tail.object == element) {
+                    nodeBefore.next = null;
+                    tail = nodeBefore;
+                } else {
+                    nodeBefore.next = nodeBefore.next.next;
                 }
-                nodes = Arrays.copyOf(tempNodes, tempNodes.length);
+                size--;
             }
         }
-
     }
 
     public void clear() {
-        nodes = Arrays.copyOf(nodes, 0);
+        head = null;
+        tail = null;
+        size = 0;
     }
 
-    public int size() {
-        return nodes.length;
+    public int size(){
+        return size;
     }
 
-    public Node get(int index) {
-        int count = 0;
-        Node returnNode = null;
-        for (int i = 0; i < nodes.length; i++) {
-            if (i == index) {
-                returnNode = nodes[i];
+    private Node get(int index) {
+        if (index < 0 || index > size - 1) {
+            throw new IndexOutOfBoundsException();
+        }
+        int tmpIndex = 0;
+        if (head == null) {
+            throw new IndexOutOfBoundsException();
+        }
+        if (index == 0) {
+            return head;
+        }
+        Node node = head;
+        while (node.next != null) {
+            node = node.next;
+            tmpIndex++;
+            if (tmpIndex == index) {
+                return node;
             }
         }
-        return returnNode;
+        throw new IndexOutOfBoundsException();
+    }
+
+    private Node getPrevious(Object value) {
+        if (head.object == value) {
+            return new Node(value);
+        }
+        Node node = head;
+        while (node.next != null) {
+            if (node.next.object == value) {
+                return node;
+            }
+            node = node.next;
+        }
+        return null;
     }
 }

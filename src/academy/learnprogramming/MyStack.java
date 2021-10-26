@@ -37,13 +37,7 @@ public class MyStack {
     }
 
     public int size(){
-        int count = 0;
-        for ( Object tempObject : myStackStorage) {
-            if (tempObject != null){
-                count++;
-            }
-        }
-        return count;
+        return myStackStorage.length;
     }
 
     public Object peek(){

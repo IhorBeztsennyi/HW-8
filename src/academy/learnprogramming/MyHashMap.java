@@ -1,5 +1,7 @@
 package academy.learnprogramming;
 
+import org.w3c.dom.Node;
+
 public class MyHashMap {
     private final Node[][] table = new Node[16][8];
 
@@ -94,9 +96,12 @@ public class MyHashMap {
         for (int i = 0; i < bucket.length; i++) {
             Node node = bucket[i];
             if (node != null) {
-                if (node.getKey().equals(key) && node.getHash() == hash) {
+                if (node.getKey() == null && key == null){
+                    returnObject = node.getValue();
+                }else if (node.getKey().equals(key) && node.getHash() == hash){
                     returnObject = node.getValue();
                 }
+
             }
         }
         return returnObject;
@@ -161,5 +166,6 @@ public class MyHashMap {
             this.next = next;
         }
     }
+
 
 }
