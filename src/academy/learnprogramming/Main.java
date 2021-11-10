@@ -43,7 +43,7 @@ public class Main {
         myLinkedList.remove(1);
         System.out.println("MyLinkedList size after remove: " + myLinkedList.size());
         System.out.println("get() method:");
-
+        System.out.println(myLinkedList.get(0));
         System.out.println("clear() method:");
         myLinkedList.clear();
         System.out.println("MyLinkedList size after clear: " + myLinkedList.size());
@@ -51,7 +51,7 @@ public class Main {
 
         System.out.println("*****************");
         System.out.println("MyQueue");
-        MyQueue myQueue = new MyQueue();
+        MyQueue myQueue = new MyQueue(3);
         System.out.println("add() method:");
         myQueue.add(object1);
         myQueue.add(object2);
@@ -64,7 +64,8 @@ public class Main {
         myQueue.remove(0);
         myQueue.print();
         System.out.println("peek() method:");
-        myQueue.peek();
+        System.out.println(myQueue.peek());
+        System.out.println("Queue after peek: ");
         myQueue.print();
         System.out.println("poll() method:");
         myQueue.poll();
@@ -73,10 +74,10 @@ public class Main {
         myQueue.clear();
         myQueue.print();
         System.out.println("MyQueue size after clear: " + myQueue.size());
-
+//
         System.out.println("*****************");
         System.out.println("MyStack");
-        MyStack myStack = new MyStack();
+        MyStack myStack = new MyStack(10);
         System.out.println("push() method:");
         myStack.push(object1);
         myStack.push(object2);
@@ -89,7 +90,8 @@ public class Main {
         System.out.println("size() method:");
         System.out.println("MyStack size: " + myStack.size());
         System.out.println("peek() method:");
-        myStack.peek();
+        System.out.println(myStack.peek());
+        System.out.println("Stack after peek:");
         myStack.print();
         System.out.println("pop() method:");
         myStack.pop();

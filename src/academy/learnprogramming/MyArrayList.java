@@ -4,18 +4,19 @@ import java.util.Arrays;
 
 public class MyArrayList {
 
-    private final static int INITIAL_SIZE = 0;
+    private final static int DEFAULT_CAPACITY = 10;
+    private final static double INCREASE_FACTOR = 2.5;
 
-    private int count = 0;
+    private int size = 0;
 
-    Object[] myArrayStorage = new Object[INITIAL_SIZE];
+    Object[] myArrayStorage = new Object[DEFAULT_CAPACITY];
 
     public boolean add(Object value) {
-        if (myArrayStorage.length <= count) {
-            myArrayStorage = Arrays.copyOf(myArrayStorage, (myArrayStorage.length +1));
+        if (myArrayStorage.length <= size) {
+            myArrayStorage = Arrays.copyOf(myArrayStorage, (int) (myArrayStorage.length*INCREASE_FACTOR));
         }
-        myArrayStorage[count] = value;
-        count++;
+        myArrayStorage[size] = value;
+        size++;
         return true;
     }
 
@@ -28,16 +29,18 @@ public class MyArrayList {
                 tempMyArrayStorage[i - 1] = myArrayStorage[i];
             }
         }
-        myArrayStorage = Arrays.copyOf(tempMyArrayStorage, size()-1);
+        size--;
+        myArrayStorage = Arrays.copyOf(tempMyArrayStorage, size);
         return true;
     }
 
     public void clear() {
         Arrays.fill(myArrayStorage, null);
+        size = 0;
     }
 
     public int size() {
-      return myArrayStorage.length;
+      return size;
     }
 
     public Object get(int index) {
@@ -46,7 +49,6 @@ public class MyArrayList {
             if (i == index) {
                 tempObject = myArrayStorage[i];
             }
-
         }
         return tempObject;
     }
@@ -59,4 +61,6 @@ public class MyArrayList {
             }
         }
     }
+
+
 }

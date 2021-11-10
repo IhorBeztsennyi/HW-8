@@ -13,6 +13,10 @@ public class MyLinkedList {
         public Node(Object element) {
             this.object = element;
         }
+
+        public Object getObject() {
+            return object;
+        }
     }
 
     public void add(Object value) {
@@ -38,7 +42,7 @@ public class MyLinkedList {
         if (index == 0) {
             head = head.next;
         } else {
-            Node element = get(index);
+            Node element = getNode(index);
             Node nodeBefore = getPrevious(element);
             if (nodeBefore == null) {
                 head = head.next;
@@ -65,13 +69,19 @@ public class MyLinkedList {
         return size;
     }
 
-    private Node get(int index) {
+    public Object get(int index){
+        Node node = getNode(index);
+        return node.getObject();
+    }
+
+    private Node getNode(int index) {
         if (index < 0 || index > size - 1) {
             throw new IndexOutOfBoundsException();
         }
         int tmpIndex = 0;
         if (head == null) {
             throw new IndexOutOfBoundsException();
+
         }
         if (index == 0) {
             return head;

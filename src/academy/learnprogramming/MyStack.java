@@ -4,21 +4,29 @@ import java.util.Arrays;
 
 public class MyStack {
 
-    private final static int INITIAL_SIZE = 0;
+    private int initialSize;
+    private int size = 0;
 
-    Object[] myStackStorage = new Object[INITIAL_SIZE];
+    public MyStack(int initialSize) {
+        this.initialSize = initialSize;
+        this.myStackStorage = new Object[initialSize];
+    }
 
-    public Object push(Object value){
-        Object[] tempMyStackStorage = new Object[myStackStorage.length + 1];
-        tempMyStackStorage = Arrays.copyOf(myStackStorage, tempMyStackStorage.length);
-        myStackStorage = tempMyStackStorage;
-        myStackStorage[myStackStorage.length-1] = value;
+    Object[] myStackStorage;
+
+    public Object push (Object value) {
+        if (size == initialSize) {
+            System.out.println("Stack is overflow");
+            return null;
+        }
+        myStackStorage[size] = value;
+        size++;
         return value;
     }
 
     public Object remove(int index) {
         Object returnObject = null;
-        Object[] tempStackStorage = Arrays.copyOf(myStackStorage, myStackStorage.length-1);
+        Object[] tempStackStorage = new  Object[initialSize];
         for (int i = 0; i < myStackStorage.length; i++) {
             if (i < index) {
                 tempStackStorage[i] = myStackStorage[i];
@@ -28,24 +36,27 @@ public class MyStack {
                 returnObject = myStackStorage[i];
             }
         }
-        myStackStorage = Arrays.copyOf(tempStackStorage, tempStackStorage.length);
+        myStackStorage = Arrays.copyOf(tempStackStorage, initialSize);
+        size--;
         return returnObject;
     }
 
     public void clear() {
-        myStackStorage = Arrays.copyOf(myStackStorage, 0);;
+        Arrays.fill(myStackStorage, null);
+        size = 0;
     }
 
     public int size(){
-        return myStackStorage.length;
+        return size;
     }
 
     public Object peek(){
-        return myStackStorage[myStackStorage.length-1];
+        return myStackStorage[size-1];
     }
     public Object pop(){
-        Object removedObject = myStackStorage[myStackStorage.length-1];
-        myStackStorage = Arrays.copyOf(myStackStorage, myStackStorage.length-1);
+        Object removedObject = myStackStorage[size-1];
+        myStackStorage[size-1] = null;
+        size--;
         return removedObject;
     }
     public void print() {

@@ -3,23 +3,29 @@ package academy.learnprogramming;
 import java.util.Arrays;
 
 public class MyQueue {
-    private final static int INITIAL_SIZE = 0;
-    private int count = 0;
+    private int initialSize;
+    private int size = 0;
 
-    Object[] myQueueStorage = new Object[INITIAL_SIZE];
+    public MyQueue(int initialSize) {
+        this.initialSize = initialSize;
+        this.myQueueStorage = new Object[initialSize];
+    }
+
+    Object[] myQueueStorage;
 
     public boolean add(Object value) {
-        if (myQueueStorage.length <= count) {
-            myQueueStorage = Arrays.copyOf(myQueueStorage, (myQueueStorage.length + 1));
+        if (size == initialSize) {
+            System.out.println("Queue is overflow");
+            return false;
         }
-        myQueueStorage[count] = value;
-        count++;
+        myQueueStorage[size] = value;
+        size++;
         return true;
     }
 
     public Object remove(int index) {
         Object returnObject = null;
-        Object[] tempQueueStorage = Arrays.copyOf(myQueueStorage, myQueueStorage.length-1);
+        Object[] tempQueueStorage = new Object[initialSize];
         for (int i = 0; i < myQueueStorage.length; i++) {
             if (i < index) {
                 tempQueueStorage[i] = myQueueStorage[i];
@@ -29,23 +35,23 @@ public class MyQueue {
                 returnObject = myQueueStorage[i];
             }
         }
-        myQueueStorage = Arrays.copyOf(tempQueueStorage, tempQueueStorage.length);
+        myQueueStorage = Arrays.copyOf(tempQueueStorage, initialSize);
+        size--;
         return returnObject;
     }
 
-
-
     public void clear() {
-        myQueueStorage = Arrays.copyOf(myQueueStorage, 0);
+        Arrays.fill(myQueueStorage, null);
+        size = 0;
     }
 
     public int size() {
-        return myQueueStorage.length;
+        return size;
     }
 
     public Object peek() {
         Object resultObject = null;
-        if (myQueueStorage.length == 0) {
+        if (size == 0) {
             return resultObject;
         } else {
             resultObject = myQueueStorage[0];
@@ -55,16 +61,17 @@ public class MyQueue {
 
     public Object poll() {
         Object resultObject = null;
-        if (myQueueStorage.length == 0) {
+        if (size == 0) {
             return resultObject;
         } else {
             resultObject = myQueueStorage[0];
-            Object[] tempMyQueueStorage = new Object[myQueueStorage.length - 1];
-            for (int i = 1; i < myQueueStorage.length; i++) {
+            Object[] tempMyQueueStorage = new Object[initialSize];
+            for (int i = 1; i < size; i++) {
                 tempMyQueueStorage[i - 1] = myQueueStorage[i];
-                myQueueStorage = Arrays.copyOf(tempMyQueueStorage, tempMyQueueStorage.length);
+                myQueueStorage = Arrays.copyOf(tempMyQueueStorage, initialSize);
             }
         }
+        size--;
         return resultObject;
     }
 
